@@ -24,6 +24,8 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/letting/templates" />
+        <option value="$MODULE_DIR$/profile/templates" />
       </list>
     </option>
   </component>
