@@ -1,3 +1,6 @@
 **/__pycache__
 *.pyc
 venv
+/ddl/
+.pytest_cache
+.idea
