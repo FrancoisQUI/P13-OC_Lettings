@@ -38,7 +38,7 @@ workflows:
             - build-and-test
       - heroku/deploy-via-git:
           requires:
-            - push-image
+            - create-and-push-docker-image
           filters:
             branches:
               only:
