@@ -32,7 +32,10 @@ jobs:
             docker push franqui/oc-lettings-fq:$CIRCLE_SHA1
 
   publish-image-on-heroku:
-    machine: true
+    docker:
+      - image: cimg/python:3.10.2
+    machine:
+    true
     steps:
       - checkout
       - run :
@@ -53,7 +56,3 @@ workflows:
       - publish-image-on-heroku:
           requires:
             - create-and-push-docker-image
-          filters:
-            branches:
-              only:
-                - master
