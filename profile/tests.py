@@ -18,6 +18,7 @@ class ProfileIndexTestCase(TestCase):
         response = client.get(path)
         assert str(response.content).find("<title>Profiles</title>") > 0
 
+
 class ProfileDetailTestCase(TestCase):
     def setUp(self):
         user = User.objects.create(username="test_user")
