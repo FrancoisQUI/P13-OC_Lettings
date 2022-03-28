@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   python: circleci/python@1.5.0
-  heroku: circleci/heroku@1.2.6
 
 jobs:
   build-and-test:
@@ -15,6 +14,9 @@ jobs:
       - run:
           name: Run Tests
           command: python manage.py test
+      - run:
+          name: Linting
+          command: flake8
 
   create-and-push-docker-image:
     docker:
@@ -29,6 +31,18 @@ jobs:
             docker build -t franqui/oc-lettings-fq:$CIRCLE_SHA1 .
             docker push franqui/oc-lettings-fq:$CIRCLE_SHA1
 
+  publish-image-on-heroku:
+    machine: true
+    steps:
+      - checkout
+      - run :
+          name: build, push, deploy image to heroku
+          command : |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push franqui/oc-lettings-fq:$CIRCLE_SHA1 web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release franqui/oc-lettings-fq:$CIRCLE_SHA1 web
+
 workflows:
   test-and-deploy:
     jobs:
@@ -36,7 +50,7 @@ workflows:
       - create-and-push-docker-image:
           requires:
             - build-and-test
-      - heroku/deploy-via-git:
+      - publish-image-on-heroku:
           requires:
             - create-and-push-docker-image
           filters:
