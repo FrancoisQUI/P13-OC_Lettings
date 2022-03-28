@@ -4,3 +4,4 @@ venv
 /ddl/
 .pytest_cache
 .idea
+.env

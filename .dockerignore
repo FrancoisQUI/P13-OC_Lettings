@@ -1,3 +1,4 @@
 .idea/
 ddl/
 .pytest_cache/
+.env
