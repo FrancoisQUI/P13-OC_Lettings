@@ -34,8 +34,7 @@ jobs:
   publish-image-on-heroku:
     docker:
       - image: cimg/python:3.10.2
-    machine:
-    true
+    machine: true,
     steps:
       - checkout
       - run :
