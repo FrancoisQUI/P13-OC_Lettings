@@ -41,12 +41,12 @@ jobs:
           command : |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SECRET_KEY=${SECRET_KEY} -a oc-lettings-fq
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set DISABLE_COLLECTSTATIC=1 -a oc-lettings-fq
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-fq web 
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku run python manage.py migrate -a oc-lettings-fq
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku run python manage.py collectstatic --noinput -a oc-lettings-fq
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-fq web 
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SECRET_KEY=${SECRET_KEY} -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set DISABLE_COLLECTSTATIC=1 -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a $HEROKU_APP_NAME web 
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku run python manage.py migrate -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a $HEROKU_APP_NAME web 
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku run python manage.py collectstatic --noinput -a $HEROKU_APP_NAME
 
 workflows:
   test-and-deploy:
