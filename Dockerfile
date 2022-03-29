@@ -13,7 +13,6 @@ ENV ALLOWED_HOSTS=$ALLOWED_HOSTS
 ENV PORT=8000
 
 COPY . .
-RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
