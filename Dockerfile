@@ -13,7 +13,7 @@ ENV ALLOWED_HOSTS=$ALLOWED_HOSTS
 ENV PORT=8000
 
 COPY . .
-RUN SECRET_KEY=${SECRET_KEY} ALLOWED_HOSTS=${ALLOWED_HOSTS} python manage.py collectstatic
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
