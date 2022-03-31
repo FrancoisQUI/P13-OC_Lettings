@@ -1,8 +1,13 @@
-<title>{{ title }}</title>
-<h1>{{ title }}</h1>
-<p>{{ address.number }} {{ address.street }}</p>
-<p>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</p>
-<p>{{ address.country_iso_code }}</p>
-<div><a href="{% url 'letting:index' %}">Back</a></div>
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'profile:index' %}">Profiles</a></div>
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block main %}
+    <div class="block p-6 rounded-lg shadow-lg bg-white">
+        <h1 class="text-3xl font-bold text-slate-600">{{ title }}</h1>
+        <p class="text-gray-700 text-base mb-4">{{ address.number }} {{ address.street }}</p>
+        <p class="text-gray-700 text-base mb-4">{{ address.city }}, {{ address.state }} {{ address.zip_code }}</p>
+        <p class="text-gray-700 text-base mb-4">{{ address.country_iso_code }}</p>
+    </div>
+{% endblock %}
+

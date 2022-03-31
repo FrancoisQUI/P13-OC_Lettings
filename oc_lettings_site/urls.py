@@ -15,4 +15,5 @@ urlpatterns = [
     path('profiles/', include("profile.urls", namespace="profile")),
     path('admin/', admin.site.urls),
     path('sentry-debug/', trigger_error),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]

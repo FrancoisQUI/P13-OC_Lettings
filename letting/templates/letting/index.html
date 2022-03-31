@@ -1,9 +1,11 @@
-<title>Lettings</title>
-<h1>Lettings</h1>
+{% extends "base.html" %}
+
+{% block title%}Lettings{% endblock %}
+{% block main %}<h1 class="text-3xl font-bold text-slate-600">Lettings</h1>
 {% if lettings_list %}
-    <ul>
+    <ul class="flex flex-wrap mx-auto my-3 justify-center">
     {% for letting in lettings_list %}
-        <li>
+        <li class="w-5/12 inline-block m-2 px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-normal uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
             <a href="{% url 'letting:letting' letting_id=letting.id %}">
                 {{ letting.title }}
             </a>
@@ -12,6 +14,11 @@
     </ul>
 {% else %}
     <p>No lettings are available.</p>
-{% endif %}
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'profile:index' %}">Profiles</a></div>
+{% endif %}{% endblock %}
+{% block navigation %}
+    <ul class="flex flex-row items-center">
+        <li class="inline-block px-6 py-2 border-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out mx-2"><a href="{% url 'index' %}">Home</a></li>
+        <li class="inline-block px-6 py-2 border-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out mx-2"><a href="{% url 'profile:index' %}">Profiles</a></li>
+        <li class="hidden inline-block px-6 py-2 border-2 border-gray-800 text-gray-800 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out mx-2"><a href="{% url 'letting:index' %}">Lettings</a></li>
+    </ul>
+{% endblock %}
