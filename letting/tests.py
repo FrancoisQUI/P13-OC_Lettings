@@ -41,4 +41,4 @@ class LettingDetailTestCase(TestCase):
         client = Client()
         path = reverse("letting:letting", kwargs={"letting_id": letting.id})
         response = client.get(path)
-        assert str(response.content).find(f"<h1>{letting.title}</h1>") > 0
+        assert str(response.content).find(f"<title>{letting.title}</title>") > 0

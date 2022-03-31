@@ -5,6 +5,7 @@
 
 {% block main %}
     <div class="block p-6 rounded-lg shadow-lg bg-white">
+        <h1 class="text-3xl font-bold text-slate-600">{{ profile.user.username }}</h1>
         <p class="text-yellow-600 text-base mb-4">First name: {{ profile.user.first_name }}</p>
         <p class="text-yellow-600 text-base mb-4">Last name: {{ profile.user.last_name }}</p>
         <p class="text-gray-700 text-base mb-4">Email: {{ profile.user.email }}</p>
