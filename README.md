@@ -1,9 +1,9 @@
 ## Résumé
-
+___
 Site web d'Orange County Lettings
 
 ## Développement local
-
+___
 ### Prérequis
 
 - Compte GitHub avec accès en lecture à ce repository
@@ -69,9 +69,54 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Aller sur `http://localhost:8000/admin`
 - Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
 
+#### Tailwind CSS
+
+<!-- TODO -->
+
+#### Avant chaque push 
+
+<!-- TODO -->
+
+#### Variables d'environnement
+
+<!-- TODO -->
+
 ### Windows
 
 Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+
+
+
+## Utiliser le pipeline CI/CD
+___
+
+### Principe de fonctionnement
+
+#### Résumé
+
+#### Déroulement
+
+##### Phase de build et de tests
+
+#### Étapes préalables
+
+#### Services nécessitant un compte
+
+##### GitHub
+
+##### CircleCI
+
+##### Docker HUB
+
+##### Heroku
+
+##### Sentry
+
+#### Variable d'environnement
+
+<!-- TODO: Tableau avec les variables par services-->

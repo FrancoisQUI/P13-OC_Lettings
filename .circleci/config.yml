@@ -39,6 +39,8 @@ jobs:
       - run :
           name: build, push, deploy image to heroku
           command : |
+            # TODO: Creer le projet si non existant
+            
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SECRET_KEY=${SECRET_KEY} -a $HEROKU_APP_NAME
@@ -58,3 +60,4 @@ workflows:
       - publish-image-on-heroku:
           requires:
             - create-and-push-docker-image
+          # TODO: Ajouter filtre branche master
