@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@1.5.0
+  python: circleci/python@2.0.3
   heroku: circleci/heroku@1.2.6
 
 jobs:
@@ -12,12 +12,6 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - run:
-          name: update style with Tailwind
-          command: python manage.py tailwind build
-      - run:
-          name: collect statics
-          command: python manage.py collectstatic
       - run:
           name: Run Tests
           command: python manage.py test
