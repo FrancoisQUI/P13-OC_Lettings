@@ -32,6 +32,20 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
 - Pour désactiver l'environnement, `deactivate`
 
+#### Variables d'environnement
+
+- créez un fichier .env à la racine du projet.
+- ajoutez et complétez-y les lignes suivantes :
+
+``` 
+DEBUG=
+SECRET_KEY=
+PORT=
+ALLOWED_HOSTS=
+SENTRY_DSN=
+```
+
+Vous trouverez des informations complémentaires concernant les variables d'environnement dans un paragraphe suivant 
 #### Exécuter le site
 
 - `cd /path/to/Python-OC-Lettings-FR`
@@ -129,7 +143,7 @@ Vous trouverez ci-dessous un tableau récapitulatif des variables utilisées et 
 |----------------:|:----:|--------------------------------------------------------|--------------------------|:----:|:--------:|:----------:|:------:|
 |           DEBUG | bool | true                                                   | settings.py              |   X  |     X    |     (X)    |    *   |
 |      SECRET_KEY |  str | fp$9^593hsriajg...                                     | settings.py              |   X  |     X    |      X     |    *   |
-|   ALLOWED_HOSTS | list | [0.0.0.0, "localhost"]                                 | settings.py              |   X  |     X    |     (X)    |    *   |
+|   ALLOWED_HOSTS | list | ["0.0.0.0", "localhost"]                               | settings.py              |   X  |     X    |     (X)    |    *   |
 |            PORT |  int | 8000                                                   | settings.py              |   X  |          |     (X)    |        |
 |      SENTRY_DSN |  str | "https://30[...]04@o1[...]19.ingest.sentry.io/6[...]4" | Sentry App Configuration |   X  |     X    |      X     |    *   |
 |    DOCKER_LOGIN |  str | username                                               | docker-hub account       |      |     X    |            |        |
@@ -142,18 +156,34 @@ Vous trouverez ci-dessous un tableau récapitulatif des variables utilisées et 
 - ```(X)``` signifie qu'elle peut etre renseignée si la valeur par défaut ne convient pas
 - ```*``` signifie qu'elle est utilisée et renseignée automatiquement à condition qu'elle ait bien éte configurée dans circleCI
 
+#### Utilisation du projet en local
+
+Après la récupération du projet créez à la racine un fichier ".env", et ajoutez y les variables d'environnement en vous aidant 
+
 #### Configurer la pipeline
- Compte necessaires : 
-- [Github](https://github.com/)
+Prérequis :
+- Compte GitHub avec le projet cloné 
+
+
+Compte necessaires :
 - [CircleCI](https://app.circleci.com/)
 - [Heroku](https://www.heroku.com)
-- 
+- [docker-hub](https://hub.docker.com/)
+- [sentry](https://sentry.io/)
+
+Etapes :
+ - connecter github dans circleCI
+ - Sur la page des projets, trouver le dépot git-hub correspondant et cliquer sur "Setup project"
+ - choisir "Fastest: Use the .circleci/config.yml in my repo" et la branche "Main"
+ - sur la page du projet : cliquez sur "Project Settings" puis dans l'onglet "Environnements variables" renseigner les variables d'environnement en vous aidant du tableau present dans le chapitre précédent __Variables d'environnement__
 
 #### Sentry
 
+- pour provoquer une erreur non résolue et vérifier que sentry fonctionne avec l'url : ```http://127.0.0.1:8000/sentry-debug```
+
 #### Lancer l'image docker en local
 
-- installer docker si necessaire
+- installer docker si nécessaire
 
 - lancer la commande :
   - avec les informations entre crochet peuvent etre remplacées par les informations présente dans vos fichiers d'environnement
@@ -162,5 +192,9 @@ Vous trouverez ci-dessous un tableau récapitulatif des variables utilisées et 
 ```shell
   docker run -p 8000:8000 -e PORT={port} -e SECRET_KEY={secret_key} -e DEBUG="true" -e ALLOWED_HOSTS={allowed_host} -e SENTRY_DSN={sentry_dsn} {app_name}:{tag}
 ```
+
+- l'application est disponible sur localhost:{port} depuis votre navigateur
+
+vous pouvez ajouter ``` -m=4GB --cpus=2 ``` avant ```{app_name}:{tag}``` pour allouer plus de ressources au conteneur
 
 
