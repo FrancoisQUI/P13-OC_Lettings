@@ -39,16 +39,15 @@ jobs:
       - run :
           name: build, push, deploy image to heroku
           command : |
-            # TODO: Creer le projet si non existant
-            
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku apps:create $HEROKU_APP_NAME || true
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SECRET_KEY=${SECRET_KEY} -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set DISABLE_COLLECTSTATIC=1 -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a $HEROKU_APP_NAME web 
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku run python manage.py migrate -a $HEROKU_APP_NAME
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a $HEROKU_APP_NAME web 
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku run python manage.py collectstatic --noinput -a $HEROKU_APP_NAME
+
 
 workflows:
   test-and-deploy:
@@ -60,4 +59,7 @@ workflows:
       - publish-image-on-heroku:
           requires:
             - create-and-push-docker-image
-          # TODO: Ajouter filtre branche master
+          filters:
+            branches:
+              only:
+                - master
