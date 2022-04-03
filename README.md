@@ -71,15 +71,16 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 #### Tailwind CSS
 
-<!-- TODO -->
+Ce projet utilise tailwind CSS pour la mise en place de styles. En développement pour mettre a jour automatiquement les fichiers CSS il faudra lancer la commande : ```python manage.py tailwind start```
 
 #### Avant chaque push 
 
-<!-- TODO -->
+Ne pas oublier de lancer les commandes suivante si vous avez ajouté des fichiers statics ou modifier le style de l'application :
 
-#### Variables d'environnement
-
-<!-- TODO -->
+```sh
+python manage.py tailwind build 
+python manage.py collectstatic 
+```
 
 ### Windows
 
@@ -89,34 +90,77 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
 
 
-
-
-
-## Utiliser le pipeline CI/CD
+## Utiliser la pipeline CI/CD
 ___
 
 ### Principe de fonctionnement
 
 #### Résumé
 
+Le projet est configuré pour un pipeline CI/CD utilisant CirlcleCI / Docker / Heroku
+
+À chaque push sur la branche *"main"* dans **git-hub**, **circleci** déclanchera une série de test, une vérification pep 8, la construction et le deploiement d'une image docker sur **le docker-hub**, puis un déploiement de l'image docker sur **heroku**
+
 #### Déroulement
 
-##### Phase de build et de tests
+1. Le developpeur push sur git-hub
+2. Circle-CI prends le relai
+   1. Construction et test
+      1. Il installe le projet sur une machine virtuelle
+      2. Il effectue les tests unitaires avec pytest
+      3. Il lance le linter Pep8 *flake8* (et bloque le processus en cas de non-respect de regales configurées)
+   2. Construction d'une image Docker 
+      1. Il se connecte au compte docker
+      2. Il crée l'image docker
+      3. Il pousse l'image vers le site docker-hub
+   3. Déploiement de l'image sur heroku
+      1. Il installe heroku sur l'image circleCI
+      2. Il crée l'application Heroku si elle n'existe pas
+      3. Il ajoute les variables d'environnement dans Heroku
+      4. Il récupère l'image docker
+      5. Il la déploie sur heroku
 
-#### Étapes préalables
+#### Variables d'environnement
 
-#### Services nécessitant un compte
+Les variables d'environnement sont utilisés par ce projet et a tous les niveaux de développement.
+Vous trouverez ci-dessous un tableau récapitulatif des variables utilisées et des endroits ou elles doivent être renseignées
 
-##### GitHub
+|   Variable Name | type | exemple                                                | Origin                   | .env | circleCI | docker run | heroku |
+|----------------:|:----:|--------------------------------------------------------|--------------------------|:----:|:--------:|:----------:|:------:|
+|           DEBUG | bool | true                                                   | settings.py              |   X  |     X    |     (X)    |    *   |
+|      SECRET_KEY |  str | fp$9^593hsriajg...                                     | settings.py              |   X  |     X    |      X     |    *   |
+|   ALLOWED_HOSTS | list | [0.0.0.0, "localhost"]                                 | settings.py              |   X  |     X    |     (X)    |    *   |
+|            PORT |  int | 8000                                                   | settings.py              |   X  |          |     (X)    |        |
+|      SENTRY_DSN |  str | "https://30[...]04@o1[...]19.ingest.sentry.io/6[...]4" | Sentry App Configuration |   X  |     X    |      X     |    *   |
+|    DOCKER_LOGIN |  str | username                                               | docker-hub account       |      |     X    |            |        |
+| DOCKER_PASSWORD |  str | motdepasse123/                                         | docker-hub account       |      |     X    |            |        |
+|  HEROKU_API_KEY |  int | 2103871[...]02847143                                   | heroku account           |      |     X    |            |        |
+| HEROKU_APP_NAME |  str | application-exemple                                    | heroku account           |      |     X    |            |        |
 
-##### CircleCI
 
-##### Docker HUB
+- ```X``` signifie qu'il faut la renseigner
+- ```(X)``` signifie qu'elle peut etre renseignée si la valeur par défaut ne convient pas
+- ```*``` signifie qu'elle est utilisée et renseignée automatiquement à condition qu'elle ait bien éte configurée dans circleCI
 
-##### Heroku
+#### Configurer la pipeline
+ Compte necessaires : 
+- [Github](https://github.com/)
+- [CircleCI](https://app.circleci.com/)
+- [Heroku](https://www.heroku.com)
+- 
 
-##### Sentry
+#### Sentry
 
-#### Variable d'environnement
+#### Lancer l'image docker en local
 
-<!-- TODO: Tableau avec les variables par services-->
+- installer docker si necessaire
+
+- lancer la commande :
+  - avec les informations entre crochet peuvent etre remplacées par les informations présente dans vos fichiers d'environnement
+  - le couple {app_name}:{tag} correspond a l'image que vous voulez lancer (voire docker-hub)
+
+```shell
+  docker run -p 8000:8000 -e PORT={port} -e SECRET_KEY={secret_key} -e DEBUG="true" -e ALLOWED_HOSTS={allowed_host} -e SENTRY_DSN={sentry_dsn} {app_name}:{tag}
+```
+
+

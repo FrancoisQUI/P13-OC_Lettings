@@ -7,13 +7,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ARG SECRET_KEY
 ARG ALLOWED_HOSTS=[]
+ARG DEBUG=True
+ARG PORT=8000
 
 ENV SECRET_KEY=$SECRET_KEY
 ENV ALLOWED_HOSTS=$ALLOWED_HOSTS
-ENV PORT=8000
+ENV PORT=$PORT
+ENV DEBUG=$DEBUG
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE $PORT
 
 CMD [ "gunicorn", "oc_lettings_site.wsgi" ]

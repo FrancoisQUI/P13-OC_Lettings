@@ -43,14 +43,14 @@ jobs:
       - run:
           name: Create heroku app if not exists
           command: |
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku apps:create $HEROKU_APP_NAME || true
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku apps:create $HEROKU_APP_NAME || true
       - run:
           name: Set heroku app variables
           command: |
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SECRET_KEY=${SECRET_KEY} -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set SENTRY_DSN=${SENTRY_DSN} -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set DEBUG=false -a $HEROKU_APP_NAME
-            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set ALLOWED_HOSTS=${ALLOWED_HOSTS} -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SECRET_KEY=${SECRET_KEY} -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set SENTRY_DSN=${SENTRY_DSN} -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set DEBUG=false -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku config:set ALLOWED_HOSTS=${ALLOWED_HOSTS} -a $HEROKU_APP_NAME
       - heroku/push-docker-image:
           process-types: web
       - heroku/release-docker-image:
