@@ -59,7 +59,3 @@ workflows:
       - publish-image-on-heroku:
           requires:
             - create-and-push-docker-image
-          filters:
-            branches:
-              only:
-                - master
