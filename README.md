@@ -156,10 +156,6 @@ Vous trouverez ci-dessous un tableau récapitulatif des variables utilisées et 
 - ```(X)``` signifie qu'elle peut etre renseignée si la valeur par défaut ne convient pas
 - ```*``` signifie qu'elle est utilisée et renseignée automatiquement à condition qu'elle ait bien éte configurée dans circleCI
 
-#### Utilisation du projet en local
-
-Après la récupération du projet créez à la racine un fichier ".env", et ajoutez y les variables d'environnement en vous aidant 
-
 #### Configurer la pipeline
 Prérequis :
 - Compte GitHub avec le projet cloné 
@@ -179,7 +175,7 @@ Etapes :
 
 #### Sentry
 
-- pour provoquer une erreur non résolue et vérifier que sentry fonctionne avec l'url : ```http://127.0.0.1:8000/sentry-debug```
+- vouz pouvez provoquer une erreur non résolue et vérifier que sentry fonctionne avec l'url : ```http://127.0.0.1:8000/sentry-debug```
 
 #### Lancer l'image docker en local
 
