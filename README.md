@@ -139,7 +139,7 @@ Le projet est configuré pour un pipeline CI/CD utilisant CirlcleCI / Docker / H
 Les variables d'environnement sont utilisés par ce projet et a tous les niveaux de développement.
 Vous trouverez ci-dessous un tableau récapitulatif des variables utilisées et des endroits ou elles doivent être renseignées
 
-|   Variable Name | type | exemple                                                | Origin                   | .env | circleCI | docker run | heroku |
+|    Nom variable | type | exemple                                                | Origine                  | .env | circleCI | docker run | heroku |
 |----------------:|:----:|--------------------------------------------------------|--------------------------|:----:|:--------:|:----------:|:------:|
 |           DEBUG | bool | true                                                   | settings.py              |   X  |     X    |     (X)    |    *   |
 |      SECRET_KEY |  str | fp$9^593hsriajg...                                     | settings.py              |   X  |     X    |      X     |    *   |
@@ -161,7 +161,7 @@ Prérequis :
 - Compte GitHub avec le projet cloné 
 
 
-Compte necessaires :
+Comptes necessaires :
 - [CircleCI](https://app.circleci.com/)
 - [Heroku](https://www.heroku.com)
 - [docker-hub](https://hub.docker.com/)

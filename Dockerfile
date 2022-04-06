@@ -19,4 +19,4 @@ COPY . .
 
 EXPOSE $PORT
 
-CMD [ "python","manage.py","runserver" ]
+CMD [ "gunicorn","--limit-request-line","0","-w","4", "oc_lettings_site.wsgi" ]
